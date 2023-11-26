@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <title>Group Chat</title>
+    <style>
+        @media (min-width: 600px) {
+            .form-group input {
+                width: 25vw;
+            }
+        }
+        .input-group-prepend span {
+            border-top-right-radius: 0px;
+            border-bottom-right-radius: 0px;
+        }
+        /* .input-group input {
+            border-left: none;
+        } */
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <h2 class="text-center pt-4">Chat App</h2>
+        <div class="container d-flex justify-content-center pt-3 pb-2">
+            <form>
+                <div class="form-group">
+                    <label for="mail" class="mb-1">E-mail</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">                        
+                            <span class="input-group-text bg-white"><i class="bi bi-envelope"></i></span>
+                        </div>
+                        <input type="email" class="form-control mb-2" id="mail" name="email" />
+                    </div>
+                    <label for="password" class="mb-1">Password</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white"><i class="bi bi-lock"></i></span>
+                        </div>
+                        <input type="password" class="form-control mb-2" id="password" name="password" />
+                    </div>
+                    <button type="submit" class="btn btn-outline-success mt-2">Login</button>
+                    <a href="../sign-up/signup.html" class="btn btn-outline-primary mt-2">Create Account</a>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script src="login.js"></script>
+</body>
+
+</html>

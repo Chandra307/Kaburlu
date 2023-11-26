@@ -1,0 +1,42 @@
+.left {
+    width: 40vw;
+}
+/* .left::before {
+    display: block;
+    content: '';
+    height: 60px;
+    z-index: -1;
+    background-color: yellow;
+} */
+.navbar {
+    background-color: #4a3333;
+}
+.left .navbar-brand {
+    font-family: Lucida Handwriting;
+}
+.col-md-7 {
+    margin-left: 3vmax;
+}
+form .card {
+    max-height: 14vmax;
+    min-height: min-content;
+    overflow-y: auto;
+}
+.right {
+    width: 60vw;
+}
+.send div{
+    margin-left: 28vw;
+}
+[class*='col-']:nth-child(odd){
+    background-color: #4a3333;
+    color: #fff;
+}
+input {
+    width: 50%;
+    border: 2px solid #dadada;
+}
+.send button{
+    border: 2px solid #dadada;
+    background-color: whitesmoke;
+}
