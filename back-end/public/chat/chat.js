@@ -14,7 +14,7 @@ async function sendMsg(grpId) {
     try {
         const message = document.querySelector('#comment').value;
         console.log(message);
-        const { data } = await axios.post(`http://localhost:5000/group/newMsg?id=${grpId}`, { message }, { headers: { "Authorization": token } });
+        const { data } = await axios.post(`http://16.170.255.208:5000/group/newMsg?id=${grpId}`, { message }, { headers: { "Authorization": token } });
         document.querySelector('#comment').value = '';
         console.log(data);
     }
@@ -24,7 +24,7 @@ async function sendMsg(grpId) {
 }
 async function fetchGrpList() {
     try {
-        const { data } = await axios.get('http://localhost:5000/user/groups', { headers: { "Authorization": token } });
+        const { data } = await axios.get('http://16.170.255.208:5000/user/groups', { headers: { "Authorization": token } });
         console.log(data);
         document.getElementById('grpList').innerHTML = '';
         data.groups.forEach(group => {
@@ -59,7 +59,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (!token) {
         window.location.href = '../login/login.html';
     }
-    // const { data } = await axios.get('http://localhost:5000/user/groups', { headers: { "Authorization": token } });
+    // const { data } = await axios.get('http://16.170.255.208:5000/user/groups', { headers: { "Authorization": token } });
     // console.log(data);
     // data.groups.forEach(group => {
     //     document.getElementById('grpList').innerHTML += `<li class='list-group-item' id='${group.name}' onclick='fetchChats(${group.id}, event)'>
@@ -79,7 +79,7 @@ clearInterval(interval);
 
 async function fetchChats(groupId, e) {
     try {
-        const { data, data: { chats, oldChats } } = await axios.get(`http://localhost:5000/group/chats?id=${groupId}`, { headers: { "Authorization": token } });
+        const { data, data: { chats, oldChats } } = await axios.get(`http://16.170.255.208:5000/group/chats?id=${groupId}`, { headers: { "Authorization": token } });
         console.log(data.group);
         document.querySelector('.right').classList.remove('d-none');
         document.getElementById('grpName').textContent = data.group;
@@ -117,7 +117,7 @@ function displayChats(chats, oldChatsExist) {
 document.getElementById('createGrp').onclick = async () => {
     try {
 
-        const { data } = await axios.get('http://localhost:5000/user/allusers', { headers: { "Authorization": token } });
+        const { data } = await axios.get('http://16.170.255.208:5000/user/allusers', { headers: { "Authorization": token } });
         console.log(data);
         document.querySelector('.chatList').classList.toggle('d-none');
         document.querySelector('.group').classList.toggle('d-none');
@@ -156,7 +156,7 @@ form.onsubmit = async (e) => {
             const groupDetails = {
                 name, participants
             }
-            const { data } = await axios.post('http://localhost:5000/group/participants', groupDetails, { headers: { "Authorization": token } });
+            const { data } = await axios.post('http://16.170.255.208:5000/group/participants', groupDetails, { headers: { "Authorization": token } });
             console.log(data);
             document.querySelector('.group').classList.toggle('d-none');
             
