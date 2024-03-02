@@ -10,7 +10,7 @@ form.onsubmit = async (e) => {
         const password = e.target.password.value;
 
         const userData = { name, phone, email, password };
-        const { data } = await axios.post('http://16.170.255.208:5000/user/signup', userData);
+        const { data } = await axios.post('/user/signup', userData);
         alert('Successfully signed up!');
         const message = document.createElement('div');
         message.className = 'd-flex justify-content-center';
@@ -18,7 +18,7 @@ form.onsubmit = async (e) => {
         document.querySelector('body').appendChild(message);
         setTimeout(_ => {
             message.remove();
-            window.location.href = '../login/login.html';
+            window.location.href = '/login.html';
         }, 2500);
         console.log(data);
     }

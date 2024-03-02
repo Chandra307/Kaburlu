@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../sources/chat.css">
+    <title>Group Chat</title>
+</head>
+
+<body>
+    <div class="wrapper d-flex">
+        <div class="left col-md-4 col d-md-block">
+            <div class="navbar sticky-top shadow-sm bg-white">
+                <div class="container-fluid">
+                    <!-- <h4>Chat App</h4> -->
+                    <a href="#" class="navbar-brand pt-2">Chat App</a>
+                    <div class="dropdown">
+                        <button class="btn pt-0" data-bs-toggle="dropdown"><i
+                                class="bi bi-three-dots-vertical"></i></button>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <li class="dropdown-item" id="createGrp">Create Group</li>
+                            <li class="dropdown-item" id="bye">Log out</li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chatList container my-2">
+                <h4 class="text-center border-bottom">Groups</h4>
+                <div class="groups card border-0">
+                    <ul class="list-group list-group-flush" id="grpList"></ul>
+                </div>
+            </div>
+            <div class="container group d-none py-md-5 py-3">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Enter name</label>
+                        <div class="col-md-7 col-6 d-inline-block">
+                            <input type="text" class="form-control" name="name" id="name" required />
+                        </div>
+                    </div>
+                    <div class="d-flex my-3">
+                        <span>Add participants</span>
+                        <div class="mx-2">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text rounded-end-0"><i class="bi bi-search"></i></span>
+                                </div>
+                                <input class="form-control" type="search" id="searchUser"
+                                    placeholder="Search by name, phone, e-m@il">
+                            </div>
+                            <div class="card my-1">
+                                <ul class="list-group list-group-flush" id="userList"></ul>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn bg-danger-subtle" id="cancel" type="button">Cancel</button>
+                    <button class="btn btn-outline-success" id="create">Create group</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="right col-md-8 d-none d-md-block">
+            <div class="navbar bg-white sticky-top border-light border-start">
+                <div class="container-fluid">
+                    <a class="navbar-brand ms-3 pb-2" href="#offcanvasRight" data-bs-toggle="offcanvas">
+                        <span class='me-md-4 me-2'><i class='bi bi-people'></i></span>
+                        <span id="grpName">Example</span>
+                    </a>
+                    <div class="navbar-nav">
+                        <button class="nav-item active d-md-none btn-close ms-auto">
+                        </button>
+                        <button class="bg-transparent border-0 me-md-3 d-md-block d-none" type="button" data-bs-toggle="offcanvas"
+                            data-bs-target="#offcanvasRight" aria-controls="offcanvasRight" title="Info"><i
+                                class=" h5 bi bi-info-circle"></i></button>
+
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight"
+                            aria-labelledby="offcanvasRightLabel">
+                            <div class="offcanvas-header">
+                                <h4 id="offcanvasRightLabel">Group name</h4>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+
+                            </div>
+                            <div class="offcanvas-body">
+                                <div class="container">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <h5>Participants(2)</h5>
+                                        <button class="btn btn-outline-primary btn-sm ms-3 rounded-pill d-none"
+                                            type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample"
+                                            aria-expanded="false" aria-controls="collapseExample">
+                                            Add
+                                        </button>
+                                    </div>
+                                    <div class="collapse" id="collapseExample">
+                                        <div class="card card-body overflow-auto">
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                </div>
+                                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                                <input class="form-control" type="search" id="searchUser"
+                                                    placeholder="Search by name, mobile, e-m@il" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card card-body bg-light" id="part">
+
+                                        <div class="d-flex px-4 my-3">
+                                            <div class="dropdrown ms-md-5 ms-0">
+                                                Jimmy(You)
+                                            </div>
+                                            <div class="ms-auto me-md-5 me-0">Member</div>
+                                        </div>
+                                        <div class="d-flex px-4 my-3">
+                                            <div class="dropdrown ms-md-5 ms-0">
+                                                Anderson
+                                            </div>
+                                            <div class="ms-auto me-md-5 me-0">Member</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container chats py-3 px-md-5">
+                <div class="row px-2 my-3">
+                    <div class="col-auto ms-auto rounded-2">Jimmy: Hi there!</div>
+                </div>
+                <div class="row px-2 my-3">
+                    <div class="col-auto me-auto rounded-2">Anderson: Hello!</div>
+                </div>
+                <div class="row px-2 my-3">
+                    <div class="col-auto ms-auto rounded-2">Jimmy: R u watching the CWC Final today?</div>
+                </div>
+                <div class="row px-2 my-3">
+                    <div class="col-auto me-auto rounded-2">Anderson: No buddy, not a cricket fan.</div>
+                </div>
+                <div class="row px-2 my-3">
+                    <div class="col-auto ms-auto rounded-2">Jimmy: Oh!</div>
+                </div>
+                <div class="row px-2 my-3">
+                    <div class="col-auto me-auto rounded-2">Anderson: Yeah!</div>
+                </div>
+            </div>
+            <div class="send bg-info rounded-top py-2 align-items-center">
+                <!-- <div class="form-row"> -->
+                <div>
+                    <!-- <form id="send" action="/group/newMsg?id=" method="post" enctype="multipart/form-data"> -->
+                    <input type="text" name="comment" id="comment" placeholder="Type message" />
+                    <input type="file" name="files" id="files" multiple disabled />
+                    <button class="mx-0.5" id="sendMsg" type="submit" disabled>Send</button>
+                    <!-- </form> -->
+                </div>
+                <!-- </div> -->
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.2/axios.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="../sources/chat.js"></script>
+</body>
+
+</html>

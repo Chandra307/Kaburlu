@@ -15,7 +15,7 @@ function isInputInvalid(string) {
 }
 function generateJWT(id, name) {
     const payload = { userId: id, userName: name };
-    return jwt.sign(payload, process.env.JWT_KEY_SECRET);
+    return jwt.sign(payload, process.env.JWT_KEY_SECRET, { expiresIn: '7d' });
 }
 
 exports.addUser = async (req, res, next) => {
@@ -74,6 +74,7 @@ exports.letUser = async (req, res, next) => {
                         return res.status(401).json({ message: 'Password incorrect!' });
                     }
                     else {
+                        res.cookie('chat_token', generateJWT(user.id, user.name));
                         res.status(200).json({ message: 'Log in successful!', token: generateJWT(user.id, user.name) });
                     }
                     // }
@@ -89,35 +90,46 @@ exports.letUser = async (req, res, next) => {
     }
 }
 
-exports.saveChat = async (req, res, next) => {
-    try {
-        const { message } = req.body;
-        const result = await req.user.createChat({ message, sender: req.user.name });
-        res.status(201).json({ message: 'success', result });
+// exports.saveChat = async (req, res, next) => {
+//     try {
+//         const { message } = req.body;
+//         const result = await req.user.createChat({ message, sender: req.user.name });
+//         res.status(201).json({ message: 'success', result });
 
-    }
-    catch (err) {
-        res.status(500).json(err);
-    }
-}
+//     }
+//     catch (err) {
+//         res.status(500).json(err);
+//     }
+// }
 
-exports.getChats = async (req, res, next) => {
+// exports.getChats = async (req, res, next) => {
+//     try {
+//         const totalChats = await Chat.count();
+//         let lastId = req.query.id;
+//         if (lastId === 'undefined') {
+//             lastId = -1;
+//         }
+//         console.log(totalChats, lastId);
+//         res.json(
+//             {
+//                 "chats": await Chat.findAll({ where: { id: { [Op.gt]: lastId } }, OFFSET: totalChats - 10, attributes: ['id', 'sender', 'message'] }),
+//                 "oldChats": totalChats > 10
+//             }
+//         );
+//     }
+//     catch (err) {
+//         console.log(err, 'in fetching chats');
+//         res.status(500).json({ "message": 'Something went wrong!', "Error": err });
+//     }
+// }
+
+exports.updateConnectionId = async (req, res, next) => {
     try {
-        const totalChats = await Chat.count();
-        let lastId = req.query.id;
-        if (lastId === 'undefined') {
-            lastId = -1;
-        }
-        console.log(totalChats, lastId);
-        res.json(
-            {
-                "chats": await Chat.findAll({ where: { id: { [Op.gt]: lastId } }, OFFSET: totalChats - 10, attributes: ['id', 'sender', 'message'] }),
-                "oldChats": totalChats > 10
-            }
-        );
-    }
-    catch (err) {
-        console.log(err, 'in fetching chats');
+        console.log(`cwd --- ${process.cwd()}`, '127 userCtrl');
+        console.log(`--dirname, ${__dirname}`, '128 userCtrl')
+        const result = await req.user.update({ connectionID: req.body.connectionId });
+        res.json({ message: 'Success', result });
+    }catch (err) {
         res.status(500).json({ "message": 'Something went wrong!', "Error": err });
     }
 }
@@ -136,5 +148,15 @@ exports.getGroups = async (req, res, next) => {
     }
     catch (err) {
         res.status(500).json({ "message": "Something went wrong!", "Error": err });
+    }
+}
+
+exports.logUserOut = async (req, res, next) => {
+    try {
+        res.clearCookie('token');
+        res.json('User logged out.')
+    }
+    catch (err) {
+        res.status(500).json(err);
     }
 }

@@ -1,0 +1,105 @@
+.navbar div.container-fluid {
+    color: #850606;
+}
+.left .navbar-brand {
+    font-family: Lucida Handwriting;
+}
+#grpList li{
+    background-color: aliceblue;
+    cursor: pointer;
+}
+.chatList {
+    overflow-y: auto;
+}
+div.sender {
+    font-family: cursive;
+}
+.container.group {
+    height: 88vh;
+}
+.col-md-7 {
+    margin-left: 3vmax;
+}
+form .card {
+    max-height: 14vmax;
+    min-height: min-content;
+    overflow-y: auto;
+}
+.chats {
+    background-color: #f1f4f8;
+    overflow: auto;
+}
+.row .col-auto {
+    max-width: 80vmin;
+    overflow-wrap: break-word;
+}
+.chats img, video {
+    width: 54vmin;
+    border: 1px solid indianred;
+}
+.chats a {
+    color: whitesmoke;
+}
+video {
+    height: 10rem;
+    object-fit: cover;
+}
+div.right > .navbar {
+    box-shadow: 0.5rem 0.125rem 0.4rem rgb(0 0 0 / 8%);
+}
+.offcanvas {
+    --bs-offcanvas-width: 55%;
+}
+#part {
+    --bs-card-spacer-y: 0.5rem;
+    --bs-card-spacer-x: 0rem;
+}
+.send div{
+    margin-left: 28vw;
+}
+[class*='col-auto']:nth-child(odd){
+    background-color:#85060699;
+    color: #fff;
+}
+input {
+    width: 50%;
+    border: 2px solid #dadada;
+}
+.send button{
+    border: 2px solid #dadada;
+    background-color: whitesmoke;
+}
+
+@media (max-width: 600px) {
+
+    .container.group {
+        max-height: 83.5vh;
+    }
+    form .card {
+        max-height: 30vh;
+    }
+    .chats {
+        min-height: 18rem;
+    }
+    .chats img {
+        width: 14rem;
+    }
+    audio {
+        width: 16rem;
+    }
+    .chats video {
+        width: 65vmin;
+    }
+    .offcanvas {
+        --bs-offcanvas-width: 92%;
+    }
+}
+
+@media (min-width: 768px) {
+    .col-md-4 {
+        width: 40%;
+    }
+    .col-md-8 {
+        width: 60%;
+    }
+}

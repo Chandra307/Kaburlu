@@ -24,7 +24,8 @@ const User = sequelize.define('user', {
     password: {
         type: Sequelize.STRING,
         allowNull: false
-    }
+    },
+    connectionID: Sequelize.STRING
 })
 
 module.exports = User;

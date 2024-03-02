@@ -7,11 +7,11 @@ form.onsubmit = async (e) => {
         const email = e.target.mail.value;
         const password = e.target.password.value;
         const loginData = { email, password };
-        const { data } = await axios.post('http://16.170.255.208:5000/user/login', loginData);
+        const { data } = await axios.post('/user/login', loginData);
         console.log(data);
         localStorage.setItem('token', data.token);
         alert(data.message);
-        window.location.href = '../chat/chat.html';
+        window.location.href = `/chat.html`;
     }
     catch (err) {
         console.log(err);
