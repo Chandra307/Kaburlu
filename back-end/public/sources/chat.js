@@ -145,11 +145,11 @@ async function sendMsg(grpId, e) {
         // Axios automatically adds the mutipart Content-Type header for us and
         // jwt token is sent along with cookies, so no token in authorization headers.
         const { data } = await axios.post(`/group/newMsg?id=${grpId}`, formData);
+        console.log(data);
         data.forEach(chat => {
             socket.emit('new-msg', chat);
-            const format = chat.format;
             if (+chatBox.id === chat.groupId) {
-                displayChat('You', chat.message, format);
+                displayChat('You', chat.message, chat.format);
             }
         })
     }

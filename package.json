@@ -5,8 +5,8 @@
   "main": "back-end/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "start-dev": "nodemon app.js"
+    "start": "node back-end/app.js",
+    "start-dev": "nodemon back-end/app.js"
   },
   "author": "Ravi Chandra Kovuri",
   "license": "ISC",

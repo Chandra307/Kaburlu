@@ -5,6 +5,7 @@ const Chat = require('../models/chats');
 const ArchivedChat = require('../models/archivedChats');
 const AWS = require('aws-sdk');
 const fs = require('fs');
+const path = require('path');
 const { Op } = require('sequelize');
 const { CronJob } = require('cron');
 
@@ -123,39 +124,45 @@ exports.sendMsg = async (req, res, next) => {
         let format = 'text';
         let sender = req.user.name;
         const group = await Group.findByPk(id);
-        let files;
 
-        if (req.files) {
-
-            const pendingURLs = req.files.map((file) => {
-
-                const fileData = fs.createReadStream(file.path);
-                fileData.on('error', err => { console.log(err, 'in readStream'); rej(err); });
-                return uploadToS3(fileData, `Files/${req.user.id}/${file.filename}`, file.mimetype);
-
-            });
-            files = req.files;
-            const urlArray = await Promise.all(pendingURLs);
-
-            const pendingDBPromises = urlArray.map(({ S3response, type }) => {
-                return group.createChat({
-                    message: S3response.Location,
-                    sender,
-                    format: type
-                })
-            });
-
-            if (message) {
-                pendingDBPromises.push(group.createChat(
-                    { message, sender, format }
-                ))
-            }
-            if (!pendingDBPromises.length) {
-                return res.status(400).json(`Hey, you can now send messages and/or images! You didn't send either though!`);
-            }
-            const chats = await Promise.all(pendingDBPromises);
-            res.status(201).json(chats);
+        if (!req.files.length && !req.body.message) {
+            return res
+                .status(400)
+                .json(`Hey, you can now send messages and/or files! You didn't send either though!`);
         }
+        const pendingURLPromises = req.files.map((file) => {
+
+            const fileData = fs.createReadStream(file.path);
+            fileData.on('error', err => {
+                console.log(err, 'in readStream');
+            });
+            fileData.on('end', () => {
+                fs.unlink(file.path, (err) => {
+                    if (err) {
+                        console.log(err, 'line142-grpCtrl');
+                    }
+                });
+            })
+            return uploadToS3(fileData, `Files/${req.user.id}/${file.filename}`, file.mimetype);
+
+        });
+
+        const chatArray = await Promise.all(pendingURLPromises);
+        chatArray.forEach(object => {
+            object.message = object.S3response.Location;
+            object.sender = sender;
+            object.groupId = +id;
+            object.format = object.type;
+            delete object.S3response;
+            delete object['type'];
+        });
+
+        if (message) {
+            chatArray.push({ message, sender, format, groupId: +id });
+        }
+        const chats = await Chat.bulkCreate(chatArray);
+        res.status(201).json(chats);
+
     }
     catch (err) {
         console.log(err, 'in sendMsg');

@@ -35,7 +35,7 @@ form .card {
 }
 .chats img, video {
     width: 54vmin;
-    border: 1px solid indianred;
+    border: 2px solid indianred;
 }
 .chats a {
     color: whitesmoke;

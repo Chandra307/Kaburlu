@@ -125,8 +125,6 @@ exports.letUser = async (req, res, next) => {
 
 exports.updateConnectionId = async (req, res, next) => {
     try {
-        console.log(`cwd --- ${process.cwd()}`, '127 userCtrl');
-        console.log(`--dirname, ${__dirname}`, '128 userCtrl')
         const result = await req.user.update({ connectionID: req.body.connectionId });
         res.json({ message: 'Success', result });
     }catch (err) {
